@@ -1,7 +1,10 @@
 package com.hdfc.leave.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,7 +25,6 @@ import lombok.ToString;
 @Table(name = "Employees")
 public class Employees {
 
-	// Columns: employee_id, name, email, phone_number, department
 
 	@Id
 	private long employee_id;
@@ -41,4 +43,6 @@ public class Employees {
 
 	@NotNull
 	private String department;
+	
+	
 }
