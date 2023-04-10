@@ -1,12 +1,13 @@
 package com.hdfc.leave.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +23,8 @@ import lombok.ToString;
 @Table(name = "Employees")
 public class Employees {
 
-
 	@Id
-	@NotNull
-	private long employee_id;
+	private long employeeId;
 
 	@NotBlank(message = "Please enter the name")
 	@NotNull(message = "Please enter the name")
@@ -37,10 +36,9 @@ public class Employees {
 	
 	@NotNull
 	@Pattern(regexp = "^\\+91[6-9][0-9]{9}$", message = "Invalid Number")
-	private String phone_number;
+	private String phoneNumber;
 
 	@NotNull(message = "Please enter the Department")
 	private String department;
-	
-	
+
 }

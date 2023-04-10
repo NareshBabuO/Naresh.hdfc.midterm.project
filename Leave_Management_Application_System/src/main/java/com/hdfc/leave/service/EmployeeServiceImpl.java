@@ -22,36 +22,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employees saveEmployee(EmployeesDTO employeesDTO) {
+		// TODO Auto-generated method stub
 
 		Employees emp = new Employees();
-		emp.setEmployee_id(employeesDTO.getEmployee_id());
+
+		emp.setEmployeeId(employeesDTO.getEmployeeId());
 		emp.setName(employeesDTO.getName());
 		emp.setEmail(employeesDTO.getEmail());
-		emp.setPhone_number(employeesDTO.getPhone_number());
+		emp.setPhoneNumber(employeesDTO.getPhoneNumber());
 		emp.setDepartment(employeesDTO.getDepartment());
+
 		return repo.save(emp);
+
 	}
 
 	@Override
 	public List<Employees> findByName(String name) {
+
 		return repo.findByName(name);
 	}
 
 	@Override
 	public Employees updateEmployee(EmployeesDTO employeesDTO) {
-		Employees emp = new Employees();
-		emp.setEmployee_id(employeesDTO.getEmployee_id());
-		emp.setName(employeesDTO.getName());
-		emp.setEmail(employeesDTO.getEmail());
-		emp.setPhone_number(employeesDTO.getPhone_number());
-		emp.setDepartment(employeesDTO.getDepartment());
-		return repo.save(emp);
-	}
+		Employees emp1 = new Employees();
 
-	@Override
-	public void deleteById(long employee_id) {
-		repo.deleteById(employee_id);
-		
+		emp1.setEmployeeId(employeesDTO.getEmployeeId());
+		emp1.setName(employeesDTO.getName());
+		emp1.setEmail(employeesDTO.getEmail());
+		emp1.setPhoneNumber(employeesDTO.getPhoneNumber());
+		emp1.setDepartment(employeesDTO.getDepartment());
+		return repo.save(emp1);
+
 	}
 
 }

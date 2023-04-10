@@ -2,10 +2,9 @@ package com.hdfc.leave.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +17,6 @@ import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.exception.EmployeeNotFoundException;
 import com.hdfc.leave.repository.EmployeeRepository;
 import com.hdfc.leave.service.EmployeeService;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/Employees")
@@ -46,16 +43,10 @@ public class EmployeeController {
 
 		List<Employees> findByName = service.findByName(name);
 
-		if (!name.equals(name)) {
+		if (name.isEmpty()) {
 			throw new EmployeeNotFoundException("Employee Not Found " + name);
 		}
 		return findByName;
-	}
-
-	@DeleteMapping("/delete/{employee_id}")
-	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id) {
-		service.deleteById(employee_id);
-		return new ResponseEntity<String>("record Deleted", HttpStatus.GONE);
 	}
 
 }

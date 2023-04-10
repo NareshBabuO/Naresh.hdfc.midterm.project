@@ -1,7 +1,5 @@
 package com.hdfc.leave.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	LeaveRequestRepo repo;
 
 	@Override
-	public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO) {
+	public LeaveRequests requestLeave(LeaveRequestDTO lRequestDTO) {
 
 		LeaveRequests leave_Requests = new LeaveRequests();
 
@@ -25,30 +23,24 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		leave_Requests.setStartDate(lRequestDTO.getStartDate());
 		leave_Requests.setEndDate(lRequestDTO.getEndDate());
 		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
-		leave_Requests.setReason(lRequestDTO.getReason());
 		leave_Requests.setStatus("Pending");
 
-		return repo.save(leave_Requests);
+		 return repo.save(leave_Requests);
 	}
 
 	@Override
-	public LeaveRequests getRequestById(long leaveRequestId) {
-		return repo.findById(leaveRequestId).orElse(null);
+	public LeaveRequests getRequestById(long leaverequestid) {
+		return repo.findById(leaverequestid).orElse(null);
 	}
 
 	@Override
-	public void deleteRequestById(long leaveRequestId) {
-		repo.deleteById(leaveRequestId);
+	public void deleteRequestById(long leaverequestid) {
+		repo.deleteById(leaverequestid);
 	}
 
 	@Override
 	public LeaveRequests updateLeave(LeaveRequestDTO lRequestDTO) {
 		return repo.save(lRequestDTO);
-	}
-
-	@Override
-	public List<LeaveRequests> getAllRequest() {
-		return repo.findAll();
 	}
 
 }
