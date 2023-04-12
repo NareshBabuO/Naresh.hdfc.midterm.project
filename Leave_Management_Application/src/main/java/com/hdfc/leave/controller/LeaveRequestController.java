@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import com.hdfc.leave.repository.LeaveRequestRepo;
 import com.hdfc.leave.service.LeaveRequestService;
 
 @RestController
-@RequestMapping("/project/leaveRequest")
+@RequestMapping("/Project/leaveRequest")
 public class LeaveRequestController {
 
 	@Autowired
@@ -30,19 +31,27 @@ public class LeaveRequestController {
 	LeaveRequestService service;
 
 	@PostMapping("/addRequest")
-	public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
-		return service.requestLeaves(lRequestDTO);
+	/*
+	 * public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
+	 * return service.requestLeaves(lRequestDTO); }
+	 */
+	public ResponseEntity<LeaveRequests> addEmployee(@RequestBody LeaveRequestDTO lRequestDTO) {
+		LeaveRequests requestLeaves = service.requestLeaves(lRequestDTO);
+		return new ResponseEntity<>(requestLeaves, HttpStatus.CREATED);
+
 	}
 
 	@GetMapping("/getById/{leaveRequestId}")
-	public LeaveRequests getRequestById(@PathVariable long leaveRequestId) throws leaveRequestNotFoundException {
+	public LeaveRequests getRequestById(@PathVariable long leaveRequestId) {
 
-		LeaveRequests requestById = service.getRequestById(leaveRequestId);
+		return service.getRequestById(leaveRequestId);
 
-		if (!requestById.equals(requestById)) {
-			throw new leaveRequestNotFoundException(" Leave Request Not found" + leaveRequestId);
-		}
-		return requestById;
+	}
+
+	@PutMapping("/Update")
+	public LeaveRequests updateRequest(@RequestBody LeaveRequestDTO lRequestDTO) {
+		return service.updateRequest(lRequestDTO);
+
 	}
 
 	@DeleteMapping("/delete/{leaveRequestId}")

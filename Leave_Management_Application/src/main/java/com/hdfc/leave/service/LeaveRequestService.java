@@ -15,7 +15,7 @@ public interface LeaveRequestService {
 	
 	public List<LeaveRequests> getAllRequest();
 	
-	public LeaveRequests  updateLeave(LeaveRequestDTO lRequestDTO);
+	public LeaveRequests  updateRequest(LeaveRequestDTO lRequestDTO);
 
 
 }

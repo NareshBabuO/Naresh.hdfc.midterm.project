@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hdfc.leave.DTO.LeaveRequestDTO;
+import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.entity.LeaveRequests;
 import com.hdfc.leave.repository.LeaveRequestRepo;
 
@@ -20,13 +21,17 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 		LeaveRequests leave_Requests = new LeaveRequests();
 
+		Employees employees = new Employees();
+		employees.setEmployee_id(lRequestDTO.getEmployee().getEmployee_id());
+
 		leave_Requests.setLeaveRequestId(lRequestDTO.getLeaveRequestId());
-		leave_Requests.setEmployee(lRequestDTO.getEmployee());
+		leave_Requests.setEmployee(employees);
 		leave_Requests.setStartDate(lRequestDTO.getStartDate());
 		leave_Requests.setEndDate(lRequestDTO.getEndDate());
 		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
 		leave_Requests.setReason(lRequestDTO.getReason());
 		leave_Requests.setStatus("Pending");
+		leave_Requests.setComments("Empty");
 
 		return repo.save(leave_Requests);
 	}
@@ -42,8 +47,24 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	}
 
 	@Override
-	public LeaveRequests updateLeave(LeaveRequestDTO lRequestDTO) {
-		return repo.save(lRequestDTO);
+	public LeaveRequests updateRequest(LeaveRequestDTO lRequestDTO) {
+
+		LeaveRequests leave_Requests = new LeaveRequests();
+
+		Employees employees = new Employees();
+		employees.setEmployee_id(lRequestDTO.getEmployee().getEmployee_id());
+
+		leave_Requests.setLeaveRequestId(lRequestDTO.getLeaveRequestId());
+		leave_Requests.setEmployee(employees);
+		leave_Requests.setStartDate(lRequestDTO.getStartDate());
+		leave_Requests.setEndDate(lRequestDTO.getEndDate());
+		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
+		leave_Requests.setReason(lRequestDTO.getReason());
+		leave_Requests.setStatus(lRequestDTO.getStatus());
+		leave_Requests.setComments(lRequestDTO.getComments());
+
+		return repo.save(leave_Requests);
+		// return repo.save(lRequestDTO);
 	}
 
 	@Override
