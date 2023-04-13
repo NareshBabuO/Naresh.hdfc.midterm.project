@@ -13,6 +13,8 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/Project/Admin")
 public class AdminController {
+	
+	
 
 	String url = "http://localhost:8118/Project/leaveRequest";
 
@@ -24,10 +26,5 @@ public class AdminController {
 		return mono;
 	}
 
-	/*
-	 * @PutMapping("/Update") public LeaveRequests updateRequest(@RequestBody
-	 * LeaveRequestDTO lRequestDTO) { return service.updateRequest(lRequestDTO);
-	 * 
-	 * }
-	 */
+	
 }

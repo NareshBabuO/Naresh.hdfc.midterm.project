@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hdfc.leave.DTO.LeaveBalanceDTO;
-import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.entity.LeaveBalance;
+import com.hdfc.leave.enums.LBalances;
 import com.hdfc.leave.repository.LeaveBalanceRepository;
 
 @Service
@@ -19,13 +20,15 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 	@Override
 	public LeaveBalance AddBalance(LeaveBalanceDTO lbDTO) {
 
-		Employees employees = new Employees();
+		// Employees employees = new Employees();
 
-		employees.setEmployee_id(lbDTO.getEmployee().getEmployee_id());
+		// employees.setEmployee_id(lbDTO.getEmployee().getEmployee_id());
 
 		LeaveBalance balance = new LeaveBalance();
+
 		balance.setLeaveBalanceId(lbDTO.getLeaveBalanceId());
-		balance.setEmployee(employees);
+		balance.setEmployee(lbDTO.getEmployee());
+		balance.setEmployee(lbDTO.getEmployee());
 		balance.setLeaveType(lbDTO.getLeaveType());
 		balance.setBalance(lbDTO.getBalance());
 
@@ -36,12 +39,12 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 	public LeaveBalance UpdateBalanceById(LeaveBalanceDTO leaveBalanceId) {
 		LeaveBalance balance = new LeaveBalance();
 
-		Employees employees = new Employees();
+		// .balance. employees = new Employees();
 
-		employees.setEmployee_id(leaveBalanceId.getEmployee().getEmployee_id());
+		// employees.setEmployee_id(leaveBalanceId.getEmployee().getEmployee_id());
 
 		balance.setLeaveBalanceId(leaveBalanceId.getLeaveBalanceId());
-		balance.setEmployee(employees);
+		balance.setEmployee(leaveBalanceId.getEmployee());
 		balance.setLeaveType(leaveBalanceId.getLeaveType());
 		balance.setBalance(leaveBalanceId.getBalance());
 		return repo.save(leaveBalanceId);
@@ -51,4 +54,16 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 	public List<LeaveBalance> getAllBalance() {
 		return repo.findAll();
 	}
+
+	@Override
+	@Transactional
+	public List<LeaveBalance> getBalanceByEmpId(long employee_id) {
+		return repo.findById(employee_id);
+	}
+
+	@Override
+	public void deleteBalanceById(long leaveBalanceId) {
+		repo.deleteById(leaveBalanceId);
+	}
+
 }

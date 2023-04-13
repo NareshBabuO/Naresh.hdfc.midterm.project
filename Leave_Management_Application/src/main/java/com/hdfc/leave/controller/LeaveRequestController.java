@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hdfc.leave.DTO.LeaveRequestDTO;
 import com.hdfc.leave.entity.LeaveRequests;
-import com.hdfc.leave.exception.leaveRequestNotFoundException;
 import com.hdfc.leave.repository.LeaveRequestRepo;
 import com.hdfc.leave.service.LeaveRequestService;
 
@@ -31,15 +30,12 @@ public class LeaveRequestController {
 	LeaveRequestService service;
 
 	@PostMapping("/addRequest")
-	/*
-	 * public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
-	 * return service.requestLeaves(lRequestDTO); }
-	 */
-	public ResponseEntity<LeaveRequests> addEmployee(@RequestBody LeaveRequestDTO lRequestDTO) {
-		LeaveRequests requestLeaves = service.requestLeaves(lRequestDTO);
-		return new ResponseEntity<>(requestLeaves, HttpStatus.CREATED);
+	  public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
+	  return service.requestLeaves(lRequestDTO); 
+	  }
+	 
 
-	}
+	
 
 	@GetMapping("/getById/{leaveRequestId}")
 	public LeaveRequests getRequestById(@PathVariable long leaveRequestId) {

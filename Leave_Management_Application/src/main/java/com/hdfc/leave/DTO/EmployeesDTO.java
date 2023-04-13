@@ -14,9 +14,17 @@ import lombok.ToString;
 public class EmployeesDTO {
 	
 
-	private long employee_id;
-	private String name;
-	private String email;
-	private String phone_number;
-	private String department;
+	private
+	long employee_id;
+	
+	private 
+	String name;
+	private
+	String email;
+	private
+	String phone_number;
+	private
+	String department;
 }
+
+

@@ -3,18 +3,19 @@ package com.hdfc.leave.DTO;
 import java.time.LocalDate;
 
 import com.hdfc.leave.entity.Employees;
+import com.hdfc.leave.enums.LeaveType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class LeaveRequestDTO {
-	
-	
+
 	private long leaveRequestId;
 
 	private Employees employee;
@@ -23,12 +24,12 @@ public class LeaveRequestDTO {
 
 	private LocalDate endDate;
 
-	private String leaveType;
-	
+	private LeaveType leaveType;
+
 	private String reason;
-	
+
 	private String status;
-	
-	private String comments;
+
+	private String comment;
 
 }

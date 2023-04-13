@@ -7,7 +7,7 @@ import com.hdfc.leave.entity.Employees;
 
 public interface EmployeeService {
 
-	public Employees saveEmployee(EmployeesDTO employeesDTO);
+	public Employees addEmployee(EmployeesDTO employeesDTO);
 
 	 public Employees updateEmployee(EmployeesDTO employeesDTO);
 

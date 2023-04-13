@@ -32,8 +32,9 @@ public class EmployeeController {
 	EmployeeRepository repo;
 
 	@PostMapping("/AddEmp")
-	public Employees saveEmployee(@Valid @RequestBody EmployeesDTO employeesDTO) {
-		return service.saveEmployee(employeesDTO);
+	public String addEmployee(@Valid @RequestBody EmployeesDTO employeesDTO) {
+		 service.addEmployee(employeesDTO);
+		 return	 "New Employeed Added:"+employeesDTO.getEmployee_id();
 	}
 
 	@GetMapping("/getAll")
@@ -55,7 +56,7 @@ public class EmployeeController {
 	@DeleteMapping("/delete/{employee_id}")
 	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id) {
 		service.deleteById(employee_id);
-		return new ResponseEntity<String>("record Deleted", HttpStatus.GONE);
+		return new ResponseEntity<String>("record Deleted"+employee_id, HttpStatus.GONE);
 	}
 
 }

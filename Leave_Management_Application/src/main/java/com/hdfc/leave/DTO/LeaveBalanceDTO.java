@@ -1,24 +1,31 @@
 package com.hdfc.leave.DTO;
 
-import org.springframework.stereotype.Service;
-
 import com.hdfc.leave.entity.Employees;
+import com.hdfc.leave.enums.LBalances;
+import com.hdfc.leave.enums.LeaveType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
-@Service
 public class LeaveBalanceDTO {
 
-	private int leaveBalanceId;
+	private long leaveBalanceId;
 
 	private Employees employee;
 
-	private String leaveType;
+	private LeaveType leaveType;
 
 	private int balance;
+	
+	
+	
+		
+	
+
 }

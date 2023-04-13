@@ -15,6 +15,8 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 	@Autowired
 	LeaveRequestRepo repo;
+	@Autowired
+	LeaveRequestService service;
 
 	@Override
 	public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO) {
@@ -25,15 +27,15 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		employees.setEmployee_id(lRequestDTO.getEmployee().getEmployee_id());
 
 		leave_Requests.setLeaveRequestId(lRequestDTO.getLeaveRequestId());
-		leave_Requests.setEmployee(employees);
+		leave_Requests.setEmployee(lRequestDTO.getEmployee());
 		leave_Requests.setStartDate(lRequestDTO.getStartDate());
 		leave_Requests.setEndDate(lRequestDTO.getEndDate());
 		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
 		leave_Requests.setReason(lRequestDTO.getReason());
 		leave_Requests.setStatus("Pending");
-		leave_Requests.setComments("Empty");
+		leave_Requests.setComment("Empty");
 
-		return repo.save(leave_Requests);
+		return leave_Requests;
 	}
 
 	@Override
@@ -60,16 +62,25 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		leave_Requests.setEndDate(lRequestDTO.getEndDate());
 		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
 		leave_Requests.setReason(lRequestDTO.getReason());
-		leave_Requests.setStatus(lRequestDTO.getStatus());
-		leave_Requests.setComments(lRequestDTO.getComments());
+		leave_Requests.setStatus("Pending");
+		leave_Requests.setComment("Empty");
 
 		return repo.save(leave_Requests);
-		// return repo.save(lRequestDTO);
 	}
 
 	@Override
 	public List<LeaveRequests> getAllRequest() {
 		return repo.findAll();
+	}
+
+	@Override
+	public LeaveRequests responseForRequest(long leaveRequestId, String status, String comment) {
+		LeaveRequests leaveRequests = getRequestById(leaveRequestId);
+		leaveRequests.setStatus(status);
+		leaveRequests.setComment(comment);
+
+		return repo.save(leaveRequests);
+
 	}
 
 }

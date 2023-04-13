@@ -10,7 +10,11 @@ public interface LeaveBalanceService {
 	public LeaveBalance AddBalance(LeaveBalanceDTO lbDTO);
 
 	public LeaveBalance UpdateBalanceById(LeaveBalanceDTO leaveBalanceId);
+
+	public List<LeaveBalance> getBalanceByEmpId(long employee_id);
 	
+	
+	public void deleteBalanceById(long leaveBalanceId);
 	
 	public List<LeaveBalance> getAllBalance();
 

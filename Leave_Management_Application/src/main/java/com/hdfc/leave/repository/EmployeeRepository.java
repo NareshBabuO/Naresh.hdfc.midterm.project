@@ -15,6 +15,5 @@ public interface EmployeeRepository extends JpaRepository<Employees, Long> {
 
 public	List<Employees> findByName(String name);
 
-	public void deleteById(long id);
 
 }
