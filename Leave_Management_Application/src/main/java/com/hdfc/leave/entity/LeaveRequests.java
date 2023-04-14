@@ -42,13 +42,11 @@ public class LeaveRequests {
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employees employee;
 
-	// @NotEmpty
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "startDate")
 	private LocalDate startDate;
 
 	@Column(name = "endDate")
-	// @NotEmpty
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 

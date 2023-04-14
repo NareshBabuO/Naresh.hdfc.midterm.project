@@ -25,7 +25,7 @@ public class AdminControler {
 	@Autowired
 	LeaveBalanceService lbservice;
 
-	@PutMapping("/Response")
+	@PutMapping("/ResponseRequest")
 	public LeaveRequests responseForRequest(@RequestParam("leaveRequestId") long leaveRequestId,
 			@RequestParam("status") String status, @RequestParam("comment") String comment) {
 		return lrservice.responseForRequest(leaveRequestId, status, comment);
@@ -37,17 +37,17 @@ public class AdminControler {
 		return lrservice.getAllRequest();
 	}
 
+	@GetMapping("/getAllBalance")
+	public List<LeaveBalance> getAllBalance() {
+		return lbservice.getAllBalance();
+	}
+
 	@PutMapping("/UpdateBalance")
 	public LeaveBalance updateBalance(@RequestParam("leaveRequestId") long leaveRequestId,
 
 			@RequestParam("balance") int balance, @RequestParam("leaveType") LeaveType leaveType) {
 		return lbservice.updateBalance(leaveRequestId, balance, leaveType);
 
-	}
-
-	@GetMapping("/getAllBalance")
-	public List<LeaveBalance> getAllBalance() {
-		return lbservice.getAllBalance();
 	}
 
 }

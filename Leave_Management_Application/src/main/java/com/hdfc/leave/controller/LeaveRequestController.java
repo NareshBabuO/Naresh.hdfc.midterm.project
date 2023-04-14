@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hdfc.leave.DTO.LeaveRequestDTO;
 import com.hdfc.leave.entity.LeaveRequests;
+import com.hdfc.leave.enums.LeaveType;
 import com.hdfc.leave.service.LeaveRequestService;
 
 @RestController
@@ -27,13 +28,14 @@ public class LeaveRequestController {
 	LeaveRequestService service;
 
 	@PostMapping("/addRequest")
-	public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
-		return service.requestLeaves(lRequestDTO);
+	public LeaveRequests requestLeave(@RequestParam("employeeId") long employeeId,
+			@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
+			@RequestParam("leaveType") LeaveType leaveType, @RequestParam("reason") String reason) {
+		return service.requestLeave(employeeId, startDate, endDate, leaveType, reason);
 	}
 
 	@GetMapping("/getById/{leaveRequestId}")
 	public LeaveRequests getRequestById(@PathVariable long leaveRequestId) {
-
 		return service.getRequestById(leaveRequestId);
 
 	}
@@ -55,11 +57,19 @@ public class LeaveRequestController {
 		return service.getAllRequest();
 	}
 
-	@PutMapping("/Response")
-	public LeaveRequests responseForRequest(@RequestParam("leaveRequestId") long leaveRequestId,
-			@RequestParam("status") String status, @RequestParam("comment") String comment) {
-		return service.responseForRequest(leaveRequestId, status, comment);
-
+	/*
+	 * @PutMapping("/Response") public LeaveRequests
+	 * responseForRequest(@RequestParam("leaveRequestId") long leaveRequestId,
+	 * 
+	 * @RequestParam("status") String status, @RequestParam("comment") String
+	 * comment) { return service.responseForRequest(leaveRequestId, status,
+	 * comment);
+	 * 
+	 * }
+	 */
+	@GetMapping("/GetByEmpId/{employee_id}")
+	public List<LeaveRequests> getBalanceByEmpId(long employee_id) {
+		return service.getRequestByEmpId(employee_id);
 	}
 
 }

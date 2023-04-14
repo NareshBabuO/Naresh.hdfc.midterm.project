@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hdfc.leave.DTO.EmployeesDTO;
 import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.exception.EmployeeNotFoundException;
-import com.hdfc.leave.repository.EmployeeRepository;
 import com.hdfc.leave.service.EmployeeService;
 
 @RestController
@@ -28,8 +27,6 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService service;
 
-	@Autowired
-	EmployeeRepository repo;
 
 	@PostMapping("/AddEmp")
 	public String addEmployee(@Valid @RequestBody EmployeesDTO employeesDTO) {
