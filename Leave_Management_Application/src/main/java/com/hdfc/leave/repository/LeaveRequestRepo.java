@@ -15,7 +15,7 @@ public interface LeaveRequestRepo extends JpaRepository<LeaveRequests,Long> {
 
 	public LeaveRequests save(LeaveRequestDTO lRequestDTO);
 
-	public LeaveRequests save(long leaveRequestId, String status, String comment);
+	//public LeaveRequests save(long leaveRequestId, String status, String comment);
 	
 
 

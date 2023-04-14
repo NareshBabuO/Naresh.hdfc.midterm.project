@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hdfc.leave.DTO.LeaveRequestDTO;
 import com.hdfc.leave.entity.LeaveRequests;
-import com.hdfc.leave.repository.LeaveRequestRepo;
 import com.hdfc.leave.service.LeaveRequestService;
 
 @RestController
@@ -24,18 +24,12 @@ import com.hdfc.leave.service.LeaveRequestService;
 public class LeaveRequestController {
 
 	@Autowired
-	LeaveRequestRepo repo;
-
-	@Autowired
 	LeaveRequestService service;
 
 	@PostMapping("/addRequest")
-	  public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
-	  return service.requestLeaves(lRequestDTO); 
-	  }
-	 
-
-	
+	public LeaveRequests requestLeave(@RequestBody LeaveRequestDTO lRequestDTO) {
+		return service.requestLeaves(lRequestDTO);
+	}
 
 	@GetMapping("/getById/{leaveRequestId}")
 	public LeaveRequests getRequestById(@PathVariable long leaveRequestId) {
@@ -59,6 +53,13 @@ public class LeaveRequestController {
 	@GetMapping("/getAll")
 	public List<LeaveRequests> getAllRequest() {
 		return service.getAllRequest();
+	}
+
+	@PutMapping("/Response")
+	public LeaveRequests responseForRequest(@RequestParam("leaveRequestId") long leaveRequestId,
+			@RequestParam("status") String status, @RequestParam("comment") String comment) {
+		return service.responseForRequest(leaveRequestId, status, comment);
+
 	}
 
 }

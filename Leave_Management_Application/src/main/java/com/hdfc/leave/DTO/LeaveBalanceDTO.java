@@ -1,7 +1,6 @@
 package com.hdfc.leave.DTO;
 
 import com.hdfc.leave.entity.Employees;
-import com.hdfc.leave.enums.LBalances;
 import com.hdfc.leave.enums.LeaveType;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +23,11 @@ public class LeaveBalanceDTO {
 	private int balance;
 	
 	
-	
+	public static  int CASUALLEAVE;
+	public static int SICKLEAVE ;
+	public static int MATERNITYLEAVE;
+	public static int PATERNITYLEAVE ;
+	public static int PRIVILEGELEAVE;
 		
 	
 

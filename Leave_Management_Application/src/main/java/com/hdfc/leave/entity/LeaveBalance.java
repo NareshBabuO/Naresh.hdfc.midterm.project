@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.hdfc.leave.enums.LBalances;
 import com.hdfc.leave.enums.LeaveType;
 
 import lombok.AllArgsConstructor;

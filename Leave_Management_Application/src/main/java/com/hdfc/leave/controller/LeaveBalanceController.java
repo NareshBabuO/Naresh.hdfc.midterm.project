@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hdfc.leave.DTO.LeaveBalanceDTO;
 import com.hdfc.leave.entity.LeaveBalance;
-import com.hdfc.leave.repository.LeaveBalanceRepository;
 import com.hdfc.leave.service.LeaveBalanceService;
 
 @RestController
@@ -26,8 +25,6 @@ public class LeaveBalanceController {
 	@Autowired
 	LeaveBalanceService service;
 
-	@Autowired
-	LeaveBalanceRepository repo;
 
 	@PostMapping("/addBalance")
 	public LeaveBalance AddBalance(@RequestBody LeaveBalanceDTO lbDTO) {
@@ -46,7 +43,7 @@ public class LeaveBalanceController {
 	}
 
 	@GetMapping("/getAll")
-	public List<LeaveBalance> getAllRequest() {
+	public List<LeaveBalance> getAllBalace() {
 		return service.getAllBalance();
 	}
 
@@ -54,4 +51,5 @@ public class LeaveBalanceController {
 	public List<LeaveBalance> getBalanceByEmpId(long employee_id) {
 		return service.getBalanceByEmpId(employee_id);
 	}
+	
 }

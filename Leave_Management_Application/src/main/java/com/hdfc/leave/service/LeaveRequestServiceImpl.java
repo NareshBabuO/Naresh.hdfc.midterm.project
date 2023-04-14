@@ -15,8 +15,6 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 	@Autowired
 	LeaveRequestRepo repo;
-	@Autowired
-	LeaveRequestService service;
 
 	@Override
 	public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO) {
@@ -27,7 +25,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		employees.setEmployee_id(lRequestDTO.getEmployee().getEmployee_id());
 
 		leave_Requests.setLeaveRequestId(lRequestDTO.getLeaveRequestId());
-		leave_Requests.setEmployee(lRequestDTO.getEmployee());
+		leave_Requests.setEmployee(employees);
 		leave_Requests.setStartDate(lRequestDTO.getStartDate());
 		leave_Requests.setEndDate(lRequestDTO.getEndDate());
 		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
@@ -35,7 +33,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		leave_Requests.setStatus("Pending");
 		leave_Requests.setComment("Empty");
 
-		return leave_Requests;
+		return repo.save(leave_Requests);
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import com.hdfc.leave.entity.LeaveRequests;
 
 public interface LeaveRequestService {
 
-	// public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO);
 	public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO);
 
 	public void deleteRequestById(long leaveRequestId);
