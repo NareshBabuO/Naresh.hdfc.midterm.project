@@ -27,11 +27,10 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService service;
 
-
 	@PostMapping("/AddEmp")
 	public String addEmployee(@Valid @RequestBody EmployeesDTO employeesDTO) {
-		 service.addEmployee(employeesDTO);
-		 return	 "New Employeed Added:"+employeesDTO.getEmployee_id();
+		service.addEmployee(employeesDTO);
+		return "New Employeed Added:" + employeesDTO.getEmployee_id();
 	}
 
 	@GetMapping("/getAll")
@@ -44,16 +43,21 @@ public class EmployeeController {
 
 		List<Employees> findByName = service.findByName(name);
 
-		if (!name.equals(name)) {
+		if (findByName.equals(name)) {
 			throw new EmployeeNotFoundException("Employee Not Found " + name);
 		}
 		return findByName;
 	}
 
 	@DeleteMapping("/delete/{employee_id}")
-	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id) {
+	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id) throws EmployeeNotFoundException {
+
+		if (employee_id == 0) {
+			throw new EmployeeNotFoundException("Employeee Not Found");
+		}
 		service.deleteById(employee_id);
-		return new ResponseEntity<String>("record Deleted"+employee_id, HttpStatus.GONE);
+
+		return new ResponseEntity<String>("record Deleted" + employee_id, HttpStatus.GONE);
 	}
 
 }

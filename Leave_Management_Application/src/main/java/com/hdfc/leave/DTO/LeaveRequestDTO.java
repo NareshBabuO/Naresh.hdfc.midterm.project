@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.enums.StatusType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class LeaveRequestDTO {
 
 	private String reason;
 
-	private String status;
+	private StatusType status;
 
 	private String comment;
 

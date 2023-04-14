@@ -5,13 +5,14 @@ import java.util.List;
 import com.hdfc.leave.DTO.LeaveRequestDTO;
 import com.hdfc.leave.entity.LeaveRequests;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.enums.StatusType;
 
 public interface LeaveRequestService {
 
 	//public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO);
 
 	public LeaveRequests requestLeave(long employeeId,String startDate,
-			String endDate,LeaveType leaveType,String reason);
+			String endDate,LeaveType leaveType, String reason);
 	
 	
 	public List<LeaveRequests> getRequestByEmpId(long employeeId);
@@ -24,7 +25,7 @@ public interface LeaveRequestService {
 
 	public LeaveRequests updateRequest(LeaveRequestDTO lRequestDTO);
 
-	public LeaveRequests responseForRequest(long leaveRequestId, String status, String comment);
+	public LeaveRequests responseForRequest(long leaveRequestId, StatusType status, String comment);
 
 
 }

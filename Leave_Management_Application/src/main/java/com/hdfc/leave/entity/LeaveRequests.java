@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.enums.StatusType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -60,7 +61,8 @@ public class LeaveRequests {
 
 	@NotNull
 	@Column(name = "status")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private StatusType status;
 
 	@Column(name = "Comments")
 	private String comment;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hdfc.leave.entity.LeaveBalance;
 import com.hdfc.leave.entity.LeaveRequests;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.enums.StatusType;
 import com.hdfc.leave.service.LeaveBalanceService;
 import com.hdfc.leave.service.LeaveRequestService;
 
@@ -27,7 +28,7 @@ public class AdminControler {
 
 	@PutMapping("/ResponseRequest")
 	public LeaveRequests responseForRequest(@RequestParam("leaveRequestId") long leaveRequestId,
-			@RequestParam("status") String status, @RequestParam("comment") String comment) {
+			@RequestParam("status") StatusType status, @RequestParam("comment") String comment) {
 		return lrservice.responseForRequest(leaveRequestId, status, comment);
 
 	}
@@ -41,13 +42,15 @@ public class AdminControler {
 	public List<LeaveBalance> getAllBalance() {
 		return lbservice.getAllBalance();
 	}
-
-	@PutMapping("/UpdateBalance")
-	public LeaveBalance updateBalance(@RequestParam("leaveRequestId") long leaveRequestId,
-
-			@RequestParam("balance") int balance, @RequestParam("leaveType") LeaveType leaveType) {
-		return lbservice.updateBalance(leaveRequestId, balance, leaveType);
-
-	}
+	/*
+	 * @PutMapping("/UpdateBalance") public LeaveBalance
+	 * updateBalance(@RequestParam("leaveBalanceId") long leaveBalanceId,
+	 * 
+	 * @RequestParam("balance") int balance, @RequestParam("leaveType") LeaveType
+	 * leaveType) { return lbservice.updateBalance(leaveRequestId, balance,
+	 * leaveType);
+	 * 
+	 * }
+	 */
 
 }

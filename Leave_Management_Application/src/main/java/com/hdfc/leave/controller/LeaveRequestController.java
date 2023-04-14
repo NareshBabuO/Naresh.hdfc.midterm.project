@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hdfc.leave.DTO.LeaveRequestDTO;
 import com.hdfc.leave.entity.LeaveRequests;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.enums.StatusType;
 import com.hdfc.leave.service.LeaveRequestService;
 
 @RestController
@@ -68,7 +69,7 @@ public class LeaveRequestController {
 	 * }
 	 */
 	@GetMapping("/GetByEmpId/{employee_id}")
-	public List<LeaveRequests> getBalanceByEmpId(long employee_id) {
+	public List<LeaveRequests> getRequestByEmpId(long employee_id) {
 		return service.getRequestByEmpId(employee_id);
 	}
 

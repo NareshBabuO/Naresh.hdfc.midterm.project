@@ -28,27 +28,29 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 
 		balance.setLeaveBalanceId(lbDTO.getLeaveBalanceId());
 		balance.setEmployee(lbDTO.getEmployee());
-		balance.setEmployee(lbDTO.getEmployee());
 		balance.setLeaveType(lbDTO.getLeaveType());
 		balance.setBalance(lbDTO.getBalance());
 
 		return repo.save(balance);
 	}
 
-	@Override
-	public LeaveBalance UpdateBalanceById(LeaveBalanceDTO leaveBalanceId) {
-		LeaveBalance balance = new LeaveBalance();
-
-		// .balance. employees = new Employees();
-
-		// employees.setEmployee_id(leaveBalanceId.getEmployee().getEmployee_id());
-
-		balance.setLeaveBalanceId(leaveBalanceId.getLeaveBalanceId());
-		balance.setEmployee(leaveBalanceId.getEmployee());
-		balance.setLeaveType(leaveBalanceId.getLeaveType());
-		balance.setBalance(leaveBalanceId.getBalance());
-		return repo.save(leaveBalanceId);
-	}
+	/*
+	 * @Override public LeaveBalance UpdateBalanceById(LeaveBalanceDTO
+	 * leaveBalanceId) {
+	 * 
+	 * LeaveBalance balance = new LeaveBalance();
+	 * 
+	 * // .balance. employees = new Employees();
+	 * 
+	 * // employees.setEmployee_id(leaveBalanceId.getEmployee().getEmployee_id());
+	 * 
+	 * balance.setLeaveBalanceId(leaveBalanceId.getLeaveBalanceId());
+	 * balance.setEmployee(leaveBalanceId.getEmployee());
+	 * balance.setLeaveType(leaveBalanceId.getLeaveType());
+	 * balance.setBalance(leaveBalanceId.getBalance());
+	 * 
+	 * return repo.save(leaveBalanceId); }
+	 */
 
 	@Override
 	public List<LeaveBalance> getAllBalance() {
@@ -62,25 +64,40 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 	}
 
 	@Override
+	@Transactional
+	public LeaveBalance getLeaveByEmpAndLeaveType(long employee_id, LeaveType leaveType) {
+
+		return repo.getLeaveByEmpAndLeaveType(employee_id, leaveType);
+	}
+
+	@Override
 	public void deleteBalanceById(long leaveBalanceId) {
 		repo.deleteById(leaveBalanceId);
 	}
 
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public LeaveBalance updateBalance(long leaveRequestId, int
+	 * balance, LeaveType leaveType) {
+	 * 
+	 * LeaveBalance leaveBalance = getBalanceById(leaveRequestId);
+	 * leaveBalance.setBalance(balance); leaveBalance.setLeaveType(leaveType);
+	 * 
+	 * return repo.save(leaveBalance); }
+	 */
+
 	@Override
-
-	@Transactional
-	public LeaveBalance updateBalance(long leaveRequestId, int balance, LeaveType leaveType) {
-
-		LeaveBalance leaveBalance = getBalanceById(leaveRequestId);
-		leaveBalance.setBalance(balance);
-		leaveBalance.setLeaveType(leaveType);
-
-		return repo.save(leaveBalance);
+	public LeaveBalance getBalanceById(long leaveBalanceId) {
+		return repo.findById(leaveBalanceId).orElse(null);
 	}
 
 	@Override
-	public LeaveBalance getBalanceById(long leaveRequestId) {
-		return repo.findById(leaveRequestId).orElse(null);
+	public LeaveBalance updateLeaveBalance(long leaveBalanceId, int balance) {
+
+		LeaveBalance leaveBalance = getBalanceById(leaveBalanceId);
+		leaveBalance.setBalance(balance);
+		return repo.save(leaveBalance);
 	}
 
 }

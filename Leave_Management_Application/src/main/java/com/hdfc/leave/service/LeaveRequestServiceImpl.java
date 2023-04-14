@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.hdfc.leave.DTO.LeaveRequestDTO;
 import com.hdfc.leave.entity.Employees;
+import com.hdfc.leave.entity.LeaveBalance;
 import com.hdfc.leave.entity.LeaveRequests;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.enums.StatusType;
+import com.hdfc.leave.enums.insertType;
 import com.hdfc.leave.repository.LeaveRequestRepo;
 
 @Service
@@ -19,6 +22,9 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 	@Autowired
 	LeaveRequestRepo repo;
+
+	@Autowired
+	LeaveBalanceService lbService;
 
 	/*
 	 * @Override public LeaveRequests requestLeaves(LeaveRequestDTO lRequestDTO) {
@@ -53,11 +59,12 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
 		leave_Requests.setEmployee(employees);
 		leave_Requests.setStartDate(LocalDate.parse(startDate));
-		leave_Requests.setEndDate(LocalDate.parse(startDate));
+		leave_Requests.setEndDate(LocalDate.parse(endDate));
 		leave_Requests.setLeaveType(leaveType);
 		leave_Requests.setReason(reason);
-		leave_Requests.setStatus("Pending");
+		leave_Requests.setStatus(StatusType.PENDING);
 		leave_Requests.setComment("Empty");
+
 		return repo.save(leave_Requests);
 
 	}
@@ -92,7 +99,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		leave_Requests.setEndDate(lRequestDTO.getEndDate());
 		leave_Requests.setLeaveType(lRequestDTO.getLeaveType());
 		leave_Requests.setReason(lRequestDTO.getReason());
-		leave_Requests.setStatus("Pending");
+		leave_Requests.setStatus(StatusType.PENDING);
 		leave_Requests.setComment("Empty");
 
 		return repo.save(leave_Requests);
@@ -104,12 +111,31 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 	}
 
 	@Override
-	public LeaveRequests responseForRequest(long leaveRequestId, String status, String comment) {
+	// @Transactional
+	public LeaveRequests responseForRequest(long leaveRequestId, StatusType status, String comment) {
 		LeaveRequests leaveRequests = getRequestById(leaveRequestId);
 		leaveRequests.setStatus(status);
 		leaveRequests.setComment(comment);
 
-		return repo.save(leaveRequests);
+		LeaveRequests updateLR = repo.save(leaveRequests);
+
+		int duration = updateLR.getEndDate().getDayOfYear() - updateLR.getStartDate().getDayOfYear();
+		insertType.info("Total Days of Leave" + duration);
+
+		if (updateLR.getStatus().equals(StatusType.APROVEED)) {
+			LeaveBalance leavebalance= lbService.getLeaveByEmpAndLeaveType(updateLR.getEmployee().getEmployee_id(),
+					updateLR.getLeaveType());
+
+			int balance = leavebalance.getBalance() - duration;
+
+			LeaveBalance updateLeaveBalance = lbService.updateLeaveBalance(leavebalance.getLeaveBalanceId(), balance);
+			// .updateBalance(leaveRequestId, duration, null);
+			// updateBalance(balanceByEmpId.getLeaveBalanceId(), balance);
+			insertType.info(updateLeaveBalance);
+
+		}
+
+		return updateLR;
 
 	}
 

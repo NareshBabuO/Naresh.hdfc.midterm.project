@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.hdfc.leave.DTO.EmployeesDTO;
 import com.hdfc.leave.DTO.LeaveBalanceDTO;
 import com.hdfc.leave.entity.Employees;
+import com.hdfc.leave.entity.LeaveBalance;
 import com.hdfc.leave.enums.LeaveType;
 import com.hdfc.leave.enums.insertType;
 import com.hdfc.leave.repository.EmployeeRepository;
+import com.hdfc.leave.repository.LeaveBalanceRepository;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -19,7 +21,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository repo;
 
 	@Autowired
-	LeaveBalanceService service;
+	LeaveBalanceService lbservice;
+
+	@Autowired
+	LeaveBalanceRepository lbRepo;
 
 	@Override
 	public List<Employees> getAllEmployee() {
@@ -64,17 +69,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 			ptl.setLeaveType(LeaveType.PATERNITYLEAVE);
 			ptl.setBalance(ptl.PATERNITYLEAVE = 4);
 
-			service.AddBalance(cl);
+			lbservice.AddBalance(cl);
 			insertType.info(cl);
 
-			service.AddBalance(sl);
+			lbservice.AddBalance(sl);
 			insertType.info(sl);
 
-			service.AddBalance(prl);
+			lbservice.AddBalance(prl);
 			insertType.info(prl);
-			service.AddBalance(ml);
+			lbservice.AddBalance(ml);
 			insertType.info(ml);
-			service.AddBalance(ptl);
+			lbservice.AddBalance(ptl);
 			insertType.info(ptl);
 
 		}
@@ -101,6 +106,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void deleteById(long employee_id) {
+
+		List<LeaveBalance> list = lbservice.getBalanceByEmpId(employee_id);
+		for (LeaveBalance balance : list) {
+
+			lbRepo.delete(balance);
+		}
+
 		repo.deleteById(employee_id);
 
 	}
