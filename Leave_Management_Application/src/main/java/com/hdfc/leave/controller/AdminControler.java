@@ -74,14 +74,15 @@ public class AdminControler {
 	 */
 
 	@PutMapping("/EmployeeAbsent/{employee_id}")
-	public ResponseEntity<String> updateBalanceIfEmployeeAbsent(@PathVariable("employee_id") long employeeId) {
-		try {
-			leaveBalanceService.updateBalanceIfEmployeeAbsent(employeeId);
-			return ResponseEntity.ok("Leave balance updated for employee id " + employeeId);
-		} catch (LeaveBalanceNotFoundException ex) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body("Leave balance not found for employee id: " + employeeId);
-		}
+	public LeaveBalance updateBalanceIfEmployeeAbsent(@PathVariable("employee_id") long employeeId) throws LeaveBalanceNotFoundException {
+		//try {
+		return	leaveBalanceService.updateBalanceIfEmployeeAbsent(employeeId);
+		/*
+		 * return ResponseEntity.ok("Leave balance updated for employee id " +
+		 * employeeId); } catch (LeaveBalanceNotFoundException ex) { return
+		 * ResponseEntity.status(HttpStatus.NOT_FOUND)
+		 * .body("Leave balance not found for employee id: " + employeeId); }
+		 */
 	}
 
 	/*

@@ -73,13 +73,7 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 		return findByEmployeeId;
 	}
 
-	@Override
-	@Transactional
-	public LeaveBalance getLeaveByEmpAndLeaveType(long employee_id, LeaveType leaveType) {
-
-		return leaveBalanceRepo.getLeaveByEmpAndLeaveType(employee_id, leaveType);
-
-	}
+	
 
 	/*
 	 * @Override public void deleteBalanceById(long leaveBalanceId) {
@@ -101,7 +95,7 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 	@Override
 	public LeaveBalance getBalanceById(long leaveBalanceId) throws LeaveBalanceNotFoundException {
 
-		if (leaveBalanceRepo.existsById(leaveBalanceId)) {
+		if (!leaveBalanceRepo.existsById(leaveBalanceId)) {
 			throw new LeaveBalanceNotFoundException("Leave Balance Not Found With :" + leaveBalanceId);
 		}
 
@@ -128,6 +122,15 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 		}
 		return allLeaveByEmpID;
 	}
+	
+	
+	@Override
+	@Transactional
+	public LeaveBalance getLeaveByEmpAndLeaveType(long employee_id, LeaveType leaveType) {
+
+		return leaveBalanceRepo.getLeaveByEmpAndLeaveType(employee_id, leaveType);
+
+	}
 
 	@Override
 	public LeaveBalance updateBalanceIfEmployeeAbsent(long employee_id) throws LeaveBalanceNotFoundException {
@@ -136,17 +139,6 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 
 		return updateLeaveBalance(balance.getLeaveBalanceId(), balance.getBalance() - 1);
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }
