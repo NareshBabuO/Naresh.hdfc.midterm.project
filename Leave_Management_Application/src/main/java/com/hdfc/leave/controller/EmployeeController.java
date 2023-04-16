@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hdfc.leave.DTO.EmployeesDTO;
 import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.exception.EmployeeNotFoundException;
+import com.hdfc.leave.exception.LeaveBalanceNotFoundException;
 import com.hdfc.leave.service.EmployeeService;
 
 @RestController
@@ -40,24 +41,17 @@ public class EmployeeController {
 
 	@GetMapping("/getByName/{name}")
 	public List<Employees> findEmployeeByName(@PathVariable String name) throws EmployeeNotFoundException {
-
 		List<Employees> findByName = service.findByName(name);
 
-		if (findByName.equals(name)) {
-			throw new EmployeeNotFoundException("Employee Not Found " + name);
-		}
 		return findByName;
 	}
 
 	@DeleteMapping("/delete/{employee_id}")
-	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id) throws EmployeeNotFoundException {
+	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id)
+			throws LeaveBalanceNotFoundException, EmployeeNotFoundException {
 
-		if (employee_id == 0) {
-			throw new EmployeeNotFoundException("Employeee Not Found");
-		}
 		service.deleteById(employee_id);
 
 		return new ResponseEntity<String>("record Deleted" + employee_id, HttpStatus.GONE);
 	}
-
 }

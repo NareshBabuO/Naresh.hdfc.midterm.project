@@ -17,6 +17,9 @@ import com.hdfc.leave.enums.LeaveType;
 public interface LeaveBalanceRepository extends JpaRepository<LeaveBalance, Long> {
 
 	LeaveBalance save(LeaveBalanceDTO leaveBalanceId);
+	
+	@Query("select sum(bal.balance)from LeaveBalance bal where bal.employee.employee_id=:employee_id")
+	public Integer getAllLeaveByEmpID(@Param("employee_id") long employee_id);
 
 	@Query("select bal from LeaveBalance bal where bal.employee.employee_id=:employee_id")
 	public List<LeaveBalance> findByEmployeeId(@Param("employee_id") long employee_id);
@@ -25,6 +28,7 @@ public interface LeaveBalanceRepository extends JpaRepository<LeaveBalance, Long
 	public LeaveBalance getLeaveByEmpAndLeaveType(@Param("employee_id") long employee_id,
 			@Param("leaveType") LeaveType leaveType);
 
+	
 	
 
 }

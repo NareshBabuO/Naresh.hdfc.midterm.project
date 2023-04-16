@@ -9,13 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hdfc.leave.DTO.LeaveBalanceDTO;
 import com.hdfc.leave.entity.LeaveBalance;
 import com.hdfc.leave.enums.LeaveType;
+import com.hdfc.leave.exception.LeaveBalanceNotFoundException;
+import com.hdfc.leave.repository.EmployeeRepository;
 import com.hdfc.leave.repository.LeaveBalanceRepository;
 
 @Service
 public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 
 	@Autowired
-	LeaveBalanceRepository repo;
+	LeaveBalanceRepository leaveBalanceRepo;
+
+	@Autowired
+	EmployeeRepository employeeRepo;
 
 	@Override
 	public LeaveBalance AddBalance(LeaveBalanceDTO lbDTO) {
@@ -31,7 +36,7 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 		balance.setLeaveType(lbDTO.getLeaveType());
 		balance.setBalance(lbDTO.getBalance());
 
-		return repo.save(balance);
+		return leaveBalanceRepo.save(balance);
 	}
 
 	/*
@@ -54,28 +59,34 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 
 	@Override
 	public List<LeaveBalance> getAllBalance() {
-		return repo.findAll();
+		return leaveBalanceRepo.findAll();
 	}
 
 	@Override
 	@Transactional
-	public List<LeaveBalance> getBalanceByEmpId(long employee_id) {
-		return repo.findByEmployeeId(employee_id);
+	public List<LeaveBalance> getBalanceByEmpId(long employee_id) throws LeaveBalanceNotFoundException {
+
+		List<LeaveBalance> findByEmployeeId = leaveBalanceRepo.findByEmployeeId(employee_id);
+		if (findByEmployeeId.isEmpty()) {
+			throw new LeaveBalanceNotFoundException("Leave balance not found for employee with ID: " + employee_id);
+		}
+		return findByEmployeeId;
 	}
 
 	@Override
 	@Transactional
 	public LeaveBalance getLeaveByEmpAndLeaveType(long employee_id, LeaveType leaveType) {
 
-		return repo.getLeaveByEmpAndLeaveType(employee_id, leaveType);
-	}
+		return leaveBalanceRepo.getLeaveByEmpAndLeaveType(employee_id, leaveType);
 
-	@Override
-	public void deleteBalanceById(long leaveBalanceId) {
-		repo.deleteById(leaveBalanceId);
 	}
 
 	/*
+	 * @Override public void deleteBalanceById(long leaveBalanceId) {
+	 * repo.deleteById(leaveBalanceId); }/
+	 * 
+	 * /*
+	 * 
 	 * @Override
 	 * 
 	 * @Transactional public LeaveBalance updateBalance(long leaveRequestId, int
@@ -88,16 +99,54 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 	 */
 
 	@Override
-	public LeaveBalance getBalanceById(long leaveBalanceId) {
-		return repo.findById(leaveBalanceId).orElse(null);
+	public LeaveBalance getBalanceById(long leaveBalanceId) throws LeaveBalanceNotFoundException {
+
+		if (leaveBalanceRepo.existsById(leaveBalanceId)) {
+			throw new LeaveBalanceNotFoundException("Leave Balance Not Found With :" + leaveBalanceId);
+		}
+
+		return leaveBalanceRepo.findById(leaveBalanceId).orElse(null);
+
 	}
 
 	@Override
-	public LeaveBalance updateLeaveBalance(long leaveBalanceId, int balance) {
+	public LeaveBalance updateLeaveBalance(long leaveBalanceId, int balance) throws LeaveBalanceNotFoundException {
 
 		LeaveBalance leaveBalance = getBalanceById(leaveBalanceId);
 		leaveBalance.setBalance(balance);
-		return repo.save(leaveBalance);
+		return leaveBalanceRepo.save(leaveBalance);
+	}
+
+	@Override
+	@Transactional
+	public Integer getAllLeaveByEmpID(long employee_id) throws LeaveBalanceNotFoundException {
+
+		Integer allLeaveByEmpID = leaveBalanceRepo.getAllLeaveByEmpID(employee_id);
+
+		if (allLeaveByEmpID == null || allLeaveByEmpID == 0) {
+			throw new LeaveBalanceNotFoundException("No leave found for employee with ID: " + employee_id);
+		}
+		return allLeaveByEmpID;
+	}
+
+	@Override
+	public LeaveBalance updateBalanceIfEmployeeAbsent(long employee_id) throws LeaveBalanceNotFoundException {
+
+		LeaveBalance balance = getLeaveByEmpAndLeaveType(employee_id, LeaveType.CASUALLEAVE);
+
+		return updateLeaveBalance(balance.getLeaveBalanceId(), balance.getBalance() - 1);
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

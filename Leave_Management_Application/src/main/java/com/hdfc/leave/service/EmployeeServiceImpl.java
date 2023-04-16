@@ -11,6 +11,8 @@ import com.hdfc.leave.entity.Employees;
 import com.hdfc.leave.entity.LeaveBalance;
 import com.hdfc.leave.enums.LeaveType;
 import com.hdfc.leave.enums.insertType;
+import com.hdfc.leave.exception.EmployeeNotFoundException;
+import com.hdfc.leave.exception.LeaveBalanceNotFoundException;
 import com.hdfc.leave.repository.EmployeeRepository;
 import com.hdfc.leave.repository.LeaveBalanceRepository;
 
@@ -18,17 +20,17 @@ import com.hdfc.leave.repository.LeaveBalanceRepository;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
-	private EmployeeRepository repo;
+	private EmployeeRepository EmployeeRequestRepo;
 
 	@Autowired
-	LeaveBalanceService lbservice;
+	LeaveBalanceService leavebalanceservice;
 
 	@Autowired
-	LeaveBalanceRepository lbRepo;
+	LeaveBalanceRepository leavebalanceRepo;
 
 	@Override
 	public List<Employees> getAllEmployee() {
-		return repo.findAll();
+		return EmployeeRequestRepo.findAll();
 	}
 
 	@Override
@@ -41,18 +43,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		emp.setPhone_number(employeesDTO.getPhone_number());
 		emp.setDepartment(employeesDTO.getDepartment());
 
-		Employees addEmployee = repo.save(emp);
+		Employees addEmployee = EmployeeRequestRepo.save(emp);
 		if (addEmployee != null) {
 
 			LeaveBalanceDTO cl = new LeaveBalanceDTO();
 			cl.setEmployee(addEmployee);
 			cl.setLeaveType(LeaveType.CASUALLEAVE);
-			cl.setBalance(cl.CASUALLEAVE = 6);
+			cl.setBalance(cl.CASUALLEAVE = 14);
 
 			LeaveBalanceDTO sl = new LeaveBalanceDTO();
 			sl.setEmployee(addEmployee);
 			sl.setLeaveType(LeaveType.SICKLEAVE);
-			sl.setBalance(sl.SICKLEAVE = 21);
+			sl.setBalance(sl.SICKLEAVE = 12);
 
 			LeaveBalanceDTO prl = new LeaveBalanceDTO();
 			prl.setEmployee(addEmployee);
@@ -62,59 +64,67 @@ public class EmployeeServiceImpl implements EmployeeService {
 			LeaveBalanceDTO ml = new LeaveBalanceDTO();
 			ml.setEmployee(addEmployee);
 			ml.setLeaveType(LeaveType.MATERNITYLEAVE);
-			ml.setBalance(ml.MATERNITYLEAVE = 26);
+			ml.setBalance(ml.MATERNITYLEAVE = 16);
 
 			LeaveBalanceDTO ptl = new LeaveBalanceDTO();
 			ptl.setEmployee(addEmployee);
 			ptl.setLeaveType(LeaveType.PATERNITYLEAVE);
-			ptl.setBalance(ptl.PATERNITYLEAVE = 4);
+			ptl.setBalance(ptl.PATERNITYLEAVE = 14);
 
-			lbservice.AddBalance(cl);
+			leavebalanceservice.AddBalance(cl);
 			insertType.info(cl);
 
-			lbservice.AddBalance(sl);
+			leavebalanceservice.AddBalance(sl);
 			insertType.info(sl);
 
-			lbservice.AddBalance(prl);
+			leavebalanceservice.AddBalance(prl);
 			insertType.info(prl);
-			lbservice.AddBalance(ml);
+			leavebalanceservice.AddBalance(ml);
 			insertType.info(ml);
-			lbservice.AddBalance(ptl);
+			leavebalanceservice.AddBalance(ptl);
 			insertType.info(ptl);
 
 		}
-
 		return addEmployee;
-
 	}
 
 	@Override
-	public List<Employees> findByName(String name) {
-		return repo.findByName(name);
+	public List<Employees> findByName(String name) throws EmployeeNotFoundException {
+		List<Employees> employees = EmployeeRequestRepo.findByName(name);
+
+		if (employees.isEmpty()) {
+			throw new EmployeeNotFoundException("No employees found with name: " + name);
+		}
+
+		return employees;
 	}
 
 	@Override
 	public Employees updateEmployee(EmployeesDTO employeesDTO) {
 		Employees emp = new Employees();
+
 		emp.setEmployee_id(employeesDTO.getEmployee_id());
 		emp.setName(employeesDTO.getName());
 		emp.setEmail(employeesDTO.getEmail());
 		emp.setPhone_number(employeesDTO.getPhone_number());
 		emp.setDepartment(employeesDTO.getDepartment());
-		return repo.save(emp);
+		return EmployeeRequestRepo.save(emp);
 	}
 
 	@Override
-	public void deleteById(long employee_id) {
+	public void deleteById(long employee_id) throws EmployeeNotFoundException, LeaveBalanceNotFoundException {
 
-		List<LeaveBalance> list = lbservice.getBalanceByEmpId(employee_id);
-		for (LeaveBalance balance : list) {
-
-			lbRepo.delete(balance);
+		if (!EmployeeRequestRepo.existsById(employee_id)) {
+			throw new EmployeeNotFoundException("Employee Not Found to Delete with :" + employee_id);
 		}
 
-		repo.deleteById(employee_id);
+		List<LeaveBalance> list = leavebalanceservice.getBalanceByEmpId(employee_id);
+		for (LeaveBalance balance : list) {
+
+			leavebalanceRepo.delete(balance);
+		}
+
+		EmployeeRequestRepo.deleteById(employee_id);
 
 	}
-
 }

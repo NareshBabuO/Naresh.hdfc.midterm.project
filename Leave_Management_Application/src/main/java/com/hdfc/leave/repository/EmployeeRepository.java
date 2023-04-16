@@ -13,7 +13,8 @@ import com.hdfc.leave.entity.Employees;
 @Transactional
 public interface EmployeeRepository extends JpaRepository<Employees, Long> {
 
-public	List<Employees> findByName(String name);
+	public List<Employees> findByName(String name);
 
+	public List<Employees> findById(long employee_id);
 
 }

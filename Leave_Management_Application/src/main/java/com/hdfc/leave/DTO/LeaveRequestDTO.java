@@ -18,19 +18,12 @@ import lombok.Setter;
 public class LeaveRequestDTO {
 
 	private long leaveRequestId;
-
 	private Employees employee;
-
 	private LocalDate startDate;
-
 	private LocalDate endDate;
-
 	private LeaveType leaveType;
-
 	private String reason;
-
 	private StatusType status;
-
 	private String comment;
 
 }

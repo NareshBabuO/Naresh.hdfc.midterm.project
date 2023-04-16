@@ -17,7 +17,7 @@ import com.hdfc.leave.entity.LeaveRequests;
 @Transactional
 public interface LeaveRequestRepo extends JpaRepository<LeaveRequests,Long> {
 
-	public LeaveRequests save(LeaveRequestDTO lRequestDTO);
+	//public LeaveRequests save(LeaveRequestDTO lRequestDTO);
 
 	//public LeaveRequests save(long leaveRequestId, String status, String comment);
 	
