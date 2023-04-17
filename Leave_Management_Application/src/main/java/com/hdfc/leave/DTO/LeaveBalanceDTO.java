@@ -15,11 +15,8 @@ import lombok.Setter;
 public class LeaveBalanceDTO {
 
 	private long leaveBalanceId;
-
 	private Employees employee;
-
 	private LeaveType leaveType;
-
 	private int balance;
 	
 	

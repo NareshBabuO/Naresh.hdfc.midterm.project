@@ -1,7 +1,6 @@
 package com.hdfc.leave.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.hdfc.leave.entity.LeaveRequests;
 import com.hdfc.leave.enums.LeaveType;

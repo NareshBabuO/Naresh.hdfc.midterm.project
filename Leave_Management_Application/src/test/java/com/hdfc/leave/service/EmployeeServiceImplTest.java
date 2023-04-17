@@ -40,7 +40,7 @@ class EmployeeServiceImplTest {
 	@Test
 	void testGetEmployeeByName() throws EmployeeNotFoundException {
 		List<Employees> findByName = 
-				employeeService.findByName("Harish");
+				employeeService.findByName("Naresh Babu");
 		assertNotNull(findByName);
 
 	}
