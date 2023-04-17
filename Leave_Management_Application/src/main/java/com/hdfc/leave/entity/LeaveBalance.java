@@ -1,5 +1,9 @@
 package com.hdfc.leave.entity;
-
+/**
+ *@author NareshBabu O
+ *@created 07-April-2023
+*
+ */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

@@ -1,8 +1,12 @@
 package com.hdfc.leave.service;
 
+/**
+ *@author NareshBabu O
+ *@created 09-April-2023
+*
+ */
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -204,7 +208,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 		int duration = updateLR.getEndDate().getDayOfYear() - updateLR.getStartDate().getDayOfYear();
 		insertType.info("Total Days of Leave" + duration);
 
-		if (updateLR.getStatus().equals(StatusType.APROVEED)) {
+		if (updateLR.getStatus().equals(StatusType.APPROVED)) {
 			LeaveBalance leavebalance = leaveBalanceService
 					.getLeaveByEmpAndLeaveType(updateLR.getEmployee().getEmployee_id(), updateLR.getLeaveType());
 

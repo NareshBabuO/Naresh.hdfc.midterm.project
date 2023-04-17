@@ -1,5 +1,9 @@
 package com.hdfc.leave.repository;
-
+/**
+ *@author NareshBabu O
+ *@created 11-April-2023
+*
+ */
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

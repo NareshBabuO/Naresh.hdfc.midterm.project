@@ -1,5 +1,9 @@
 package com.hdfc.leave.repository;
-
+/**
+ *@author NareshBabu O
+ *@created 9-April-2023
+*
+ */
 import java.util.List;
 
 import javax.transaction.Transactional;

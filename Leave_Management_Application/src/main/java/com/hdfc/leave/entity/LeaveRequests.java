@@ -1,5 +1,9 @@
 package com.hdfc.leave.entity;
-
+/**
+ *@author NareshBabu O
+ *@created 07-April-2023
+*
+ */
 import java.time.LocalDate;
 
 import javax.persistence.Column;

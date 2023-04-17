@@ -1,5 +1,9 @@
 package com.hdfc.leave.entity;
-
+/**
+ *@author NareshBabu O
+ *@created 06-April-2023
+*
+ */
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
