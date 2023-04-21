@@ -1,4 +1,5 @@
 package com.hdfc.leave.controller;
+
 /**
  *@author NareshBabu O
  *@created 11-April-2023
@@ -33,10 +34,34 @@ public class EmployeeController {
 	EmployeeService service;
 
 	@PostMapping("/AddEmp")
-	public String addEmployee(@Valid @RequestBody EmployeesDTO employeesDTO) {
-		service.addEmployee(employeesDTO);
-		return "New Employeed Added:" + employeesDTO.getEmployee_id();
+	public Employees addEmployee(@Valid @RequestBody EmployeesDTO employeesDTO) {
+		return service.addEmployee(employeesDTO);
 	}
+
+	/*
+	 * if (result.hasErrors()) { List<ObjectError> errors = result.getAllErrors();
+	 * for (ObjectError error : errors) {
+	 * System.out.println(error.getDefaultMessage()); } return
+	 * ResponseEntity.badRequest().build(); } Employees addEmployee =
+	 * service.addEmployee(employeesDTO, result); return
+	 * ResponseEntity.ok().body(addEmployee); }
+	 */
+	// service.addEmployee(employeesDTO);
+	// return "New Employeed Added:" + employeesDTO.getEmployee_id();
+	// }
+
+	/*
+	 * if (result.hasErrors()) { List<ObjectError> errors = result.getAllErrors();
+	 * for (ObjectError error : errors) {
+	 * System.out.println(error.getDefaultMessage()); } return
+	 * ResponseEntity.badRequest().build(); } Employees addEmployee =
+	 * service.addEmployee(employeesDTO, result); return
+	 * ResponseEntity.ok().body(addEmployee); }
+	 */
+
+	// service.addEmployee(employeesDTO);
+	// return "New Employeed Added:" + employeesDTO.getEmployee_id();
+	// }
 
 	@GetMapping("/getAll")
 	public List<Employees> getAllEmployee() {
@@ -44,14 +69,14 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/getByName/{name}")
-	public List<Employees> findEmployeeByName(@PathVariable String name) throws EmployeeNotFoundException {
+	public List<Employees> findEmployeeByName(@Valid @PathVariable String name) throws EmployeeNotFoundException {
 		List<Employees> findByName = service.findByName(name);
 
 		return findByName;
 	}
 
 	@DeleteMapping("/delete/{employee_id}")
-	public ResponseEntity<String> deleteRequestById(@PathVariable long employee_id)
+	public ResponseEntity<String> deleteRequestById(@Valid @PathVariable long employee_id)
 			throws LeaveBalanceNotFoundException, EmployeeNotFoundException {
 
 		service.deleteById(employee_id);

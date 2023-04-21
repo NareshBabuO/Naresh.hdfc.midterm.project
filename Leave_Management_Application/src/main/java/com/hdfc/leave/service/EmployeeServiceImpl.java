@@ -1,4 +1,5 @@
 package com.hdfc.leave.service;
+
 /**
  *@author NareshBabu O
  *@created 09-April-2023
@@ -38,7 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employees addEmployee(EmployeesDTO employeesDTO) {
+	public Employees addEmployee(EmployeesDTO employeesDTO)
+	{
 
 		Employees emp = new Employees();
 		emp.setEmployee_id(employeesDTO.getEmployee_id());
@@ -87,8 +89,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 			insertType.info(ml);
 			leavebalanceservice.AddBalance(ptl);
 			insertType.info(ptl);
-
 		}
+
+		
+		/*
+		 * if (result.hasErrors()) { String errorMessages =
+		 * result.getAllErrors().stream() .map(ObjectError::getDefaultMessage)
+		 * .collect(Collectors.joining("; ")); throw new
+		 * IllegalArgumentException(errorMessages);
+		 * 
+		 * 
+		 * }
+		 */
+		 
 		return addEmployee;
 	}
 

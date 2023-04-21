@@ -49,10 +49,12 @@ public class LeaveRequests {
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "startDate")
+//	@Pattern(regexp = "yyyy-MM-dd")
 	private LocalDate startDate;
 
 	@Column(name = "endDate")
 	@JsonFormat(pattern = "yyyy-MM-dd")
+	//@Pattern(regexp = "yyyy-MM-dd")
 	private LocalDate endDate;
 
 	@Column(name = "leaveType")

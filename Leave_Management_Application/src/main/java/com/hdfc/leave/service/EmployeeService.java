@@ -13,8 +13,8 @@ import com.hdfc.leave.exception.LeaveBalanceNotFoundException;
 
 public interface EmployeeService {
 
+	//public Employees addEmployee(EmployeesDTO employeesDTO, BindingResult result);
 	public Employees addEmployee(EmployeesDTO employeesDTO);
-
 	public List<Employees> getAllEmployee();
 
 	public List<Employees> findByName(String name) throws EmployeeNotFoundException;

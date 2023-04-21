@@ -37,6 +37,11 @@ implementation group: 'io.github.classgraph', name: 'classgraph', version: '4.8.
 // https://mvnrepository.com/artifact/org.webjars/webjars-locator
 implementation group: 'org.webjars', name: 'webjars-locator', version: '0.46'
 
+// https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.10.3'
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.0.4'
 
 implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.14.1'
 	

@@ -124,7 +124,7 @@ public class LeaveBalanceServiceImpl implements LeaveBalanceService {
 		if (allLeaveByEmpID == null || allLeaveByEmpID == 0) {
 			throw new LeaveBalanceNotFoundException("No leave found for employee with ID: " + employee_id);
 		}
-		return allLeaveByEmpID;
+		return allLeaveByEmpID; 
 	}
 	
 	
